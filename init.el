@@ -1,3 +1,7 @@
+;; Zenburn!
+(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
+(load-theme 'zenburn t)
+
 ;; Make the font big
 (set-face-attribute 'default nil :height 240)
 
@@ -56,9 +60,6 @@
 ;; Prevent annoying "Active processes exist" query when Emacs is quit
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   (cl-flet ((process-list ())) ad-do-it))
-
-(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
-(load-theme 'zenburn t)
 
 ;; Save the session
 (desktop-save-mode 1)
