@@ -4,3 +4,6 @@
 [submodule "thirdparty/multi-term"]
 	path = thirdparty/multi-term
 	url = git://github.com/emacsmirror/multi-term.git
+[submodule "thirdparty/git-modes"]
+	path = thirdparty/git-modes
+	url = git@github.com:magit/git-modes.git

@@ -1,14 +1,4 @@
-;; Zenburn!
-(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
-(load-theme 'zenburn t)
-
-;; Make the font big
-(set-face-attribute 'default nil :height 240)
-
-;; Turn off toolbar and menu bar
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-
+;; Set up directories?
 (when load-in-progress
   (setq mp-config-directory (file-name-directory load-file-name)
         mp-thirdparty-directory (concat mp-config-directory "thirdparty/")))
@@ -19,6 +9,17 @@
   (setq load-path (cons default-directory nil))
   (normal-top-level-add-subdirs-to-load-path)
   (nconc load-path orig-load-path))
+
+;; Zenburn!
+(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
+(load-theme 'zenburn t)
+
+;; Make the font big
+(set-face-attribute 'default nil :height 240)
+
+;; Turn off toolbar and menu bar
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
 (setq
  ;; Turn off startup message
@@ -64,3 +65,23 @@
 ;; Save the session
 (desktop-save-mode 1)
 (setq desktop-load-locked-desktop t)
+
+;;Multi-termq
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+
+(defun mp-multi-term-dedicated-toggle ()
+  "Toggle the multi-term dedicated window. Then, if the window
+was created, select it. If the window was dismissed, kill the
+multi-term dedicated buffer without prompting."
+  (interactive)
+  (multi-term-dedicated-toggle)
+  (if (multi-term-dedicated-exist-p)
+      (multi-term-dedicated-select)
+    (set-process-query-on-exit-flag (get-buffer-process multi-term-dedicated-buffer) nil)
+    (kill-buffer multi-term-dedicated-buffer)))
+
+(global-set-key (kbd "s-t") 'mp-multi-term-dedicated-toggle)
+
+;; magit
+(require 'magit)
