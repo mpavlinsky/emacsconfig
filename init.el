@@ -46,6 +46,9 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0
       show-paren-style 'parenthesis)
+(set-face-foreground 'show-paren-match "Orange")
+(set-face-background 'show-paren-match nil)
+(set-face-bold-p 'show-paren-match t)
 
 ;; Use "y or n" instead of "yes or no"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -53,3 +56,10 @@
 ;; Prevent annoying "Active processes exist" query when Emacs is quit
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   (cl-flet ((process-list ())) ad-do-it))
+
+(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
+(load-theme 'zenburn t)
+
+;; Save the session
+(desktop-save-mode 1)
+(setq desktop-load-locked-desktop t)
