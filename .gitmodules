@@ -1,0 +1,3 @@
+[submodule "thirdparty/zenburn-emacs"]
+	path = thirdparty/zenburn-emacs
+	url = git://github.com/bbatsov/zenburn-emacs.git
