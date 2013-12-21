@@ -85,3 +85,6 @@ multi-term dedicated buffer without prompting."
 
 ;; magit
 (require 'magit)
+(require 'magit-blame)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
