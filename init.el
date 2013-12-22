@@ -15,7 +15,7 @@
 (load-theme 'zenburn t)
 
 ;; Make the font big
-(set-face-attribute 'default nil :height 240)
+(set-face-attribute 'default nil :font "Consolas" :height 180)
 
 ;; Turn off toolbar and menu bar
 (tool-bar-mode -1)
