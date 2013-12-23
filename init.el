@@ -87,16 +87,10 @@ multi-term dedicated buffer without prompting."
 (require 'magit)
 (require 'magit-blame)
 
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
-
-
-
-
-
-
-
-
 
 ;; experimental
 (load "sandbox.el")
