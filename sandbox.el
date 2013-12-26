@@ -8,16 +8,6 @@
 
 (ad-activate 'apropos-command)
 
-
-(defun mp-reinit ()
-  (interactive)
-  (message "foo")
-  (let* ((buffer-name "~/.emacs.d/init.el")
-		 (init-buffer (get-file-buffer buffer-name)))
-	(message (buffer-name init-buffer))
-	(save-buffer init-buffer)
-	(load-file buffer-name)))
-
-
 ; debugging
 (setq debug-on-error t)
+

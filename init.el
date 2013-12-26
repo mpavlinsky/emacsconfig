@@ -15,7 +15,7 @@
 (load-theme 'zenburn t)
 
 ;; Make the font big
-(set-face-attribute 'default nil :font "Consolas" :height 180)
+(set-face-attribute 'default nil :font "Consolas" :height 140)
 
 ;; Turn off toolbar and menu bar
 (tool-bar-mode -1)
@@ -66,7 +66,7 @@
 (desktop-save-mode 1)
 (setq desktop-load-locked-desktop t)
 
-;;Multi-termq
+;;Multi-term
 (require 'multi-term)
 (setq multi-term-program "/bin/bash")
 
@@ -83,6 +83,11 @@ multi-term dedicated buffer without prompting."
 
 (global-set-key (kbd "s-t") 'mp-multi-term-dedicated-toggle)
 
+;; yank in multi-term
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "C-y") 'term-paste)))
+
+
 ;; magit
 (require 'magit)
 (require 'magit-blame)
@@ -92,5 +97,46 @@ multi-term dedicated buffer without prompting."
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+
+;; elisp commenting
+(defun mp-comment-or-uncomment-region (start end)
+  (interactive "r")
+  ; Fix the start and end if we aren't actually in a region (single line).
+  (if (not (region-active-p))
+	  (setq start (point)
+			end (point)))
+  (goto-char start)
+  (save-excursion
+	(move-beginning-of-line nil)
+	(setq non-comment-found nil)
+	(loop while (and (<= (point) end) (not non-comment-found)) do
+		  (if (not (looking-at "^\s*;"))
+			  (setq non-comment-found t))
+		  (move-beginning-of-line 2))
+	; Now that we know what to do add the semicolons or remove them.
+	(goto-char start)
+	(move-beginning-of-line nil)
+	(loop while (<= (point) end) do
+		  (if non-comment-found
+			  (insert ";;")
+			(if (re-search-forward "^\\(\s*\\);+" (line-end-position))
+				(replace-match "\\1" nil nil)))
+		  (move-beginning-of-line 2))))
+
+(global-set-key (kbd "C-;") 'mp-comment-or-uncomment-region)
+
+
+
+;; Reinitialize...
+(defun mp-reinit ()
+  (interactive)
+  (let* ((buffer-name "~/.emacs.d/init.el")
+		 (init-buffer (get-file-buffer buffer-name)))
+	(message (buffer-name init-buffer))
+	(save-buffer init-buffer)
+	(load-file buffer-name)))
+
+
 ;; experimental
 (load "sandbox.el")
+
