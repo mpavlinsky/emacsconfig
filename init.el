@@ -15,7 +15,7 @@
 (load-theme 'zenburn t)
 
 ;; Make the font big
-(set-face-attribute 'default nil :font "Consolas" :height 140)
+(set-face-attribute 'default nil :font "Consolas" :height 200)
 
 ;; Turn off toolbar and menu bar
 (tool-bar-mode -1)
@@ -88,6 +88,7 @@ multi-term dedicated buffer without prompting."
                             (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
 
+
 ;; magit
 (require 'magit)
 (require 'magit-blame)
@@ -97,33 +98,50 @@ multi-term dedicated buffer without prompting."
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;;
+;;;; elisp commenting
+;;(defun mp-comment-or-uncomment-region (start end)
+;;  (interactive "r")
+;;  ; Fix the start and end if we aren't actually in a region (single line).
+;;  (if (not (region-active-p))
+;;	  (setq start (point)
+;;			end (point)))
+;;  (goto-char start)
+;;  (save-excursion
+;;	(move-beginning-of-line nil)
+;;	(setq non-comment-found nil)
+;;	(loop while (and (<= (point) end) (not non-comment-found)) do
+;;		  (if (not (looking-at "^\s*;"))
+;;			  (setq non-comment-found t))
+;;		  (move-beginning-of-line 2))
+;;	; Now that we know what to do add the semicolons or remove them.
+;;	(goto-char start)
+;;	(move-beginning-of-line nil)
+;;	(loop while (<= (point) end) do
+;;		  (if non-comment-found
+;;			  (insert ";;")
+;;			(if (re-search-forward "^\\(\s*\\);+" (line-end-position))
+;;				(replace-match "\\1" nil nil)))
+;;		  (move-beginning-of-line 2))))
 
-;; elisp commenting
-(defun mp-comment-or-uncomment-region (start end)
-  (interactive "r")
-  ; Fix the start and end if we aren't actually in a region (single line).
-  (if (not (region-active-p))
-	  (setq start (point)
-			end (point)))
-  (goto-char start)
-  (save-excursion
-	(move-beginning-of-line nil)
-	(setq non-comment-found nil)
-	(loop while (and (<= (point) end) (not non-comment-found)) do
-		  (if (not (looking-at "^\s*;"))
-			  (setq non-comment-found t))
-		  (move-beginning-of-line 2))
-	; Now that we know what to do add the semicolons or remove them.
-	(goto-char start)
-	(move-beginning-of-line nil)
-	(loop while (<= (point) end) do
-		  (if non-comment-found
-			  (insert ";;")
-			(if (re-search-forward "^\\(\s*\\);+" (line-end-position))
-				(replace-match "\\1" nil nil)))
-		  (move-beginning-of-line 2))))
+(defun comment-dwim-line-or-toggle-term-mode (&optional arg)
+  "Replacement for the comment-dwim command.
+   If no region is selected and current line is not blank and we are not at the end of the line,
+   then comment current line.
+   Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line.
+   Also, toggles between term-line-mode and term-char-mode in multi-term"
+  (interactive "*P")
+  (if (equal 'term-mode major-mode)
+      (if (term-in-line-mode)
+          (progn (term-char-mode) (message "CHAR MODE"))
+        (term-line-mode) (message "LINE MODE"))
+    
+    (comment-normalize-vars)
+    (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+        (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+      (comment-dwim arg))))
 
-(global-set-key (kbd "C-;") 'mp-comment-or-uncomment-region)
+(global-set-key (kbd "C-;") 'comment-dwim-line-or-toggle-term-mode)
 
 
 
