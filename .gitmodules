@@ -10,3 +10,6 @@
 [submodule "thirdparty/magit"]
 	path = thirdparty/magit
 	url = git@github.com:magit/magit.git
+[submodule "thirdparty/evil"]
+	path = thirdparty/evil
+	url = git@github.com:emacsmirror/evil.git

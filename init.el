@@ -86,6 +86,8 @@ multi-term dedicated buffer without prompting."
 ;; yank in multi-term
 (add-hook 'term-mode-hook (lambda ()
                             (define-key term-raw-map (kbd "C-y") 'term-paste)))
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "s-v") 'term-paste)))
 
 
 
@@ -93,7 +95,29 @@ multi-term dedicated buffer without prompting."
 (require 'magit)
 (require 'magit-blame)
 
-(global-set-key (kbd "C-x g") 'magit-status)
+;; Magit
+(setq magit-process-popup-time 5)
+(set-face-attribute 'magit-item-highlight nil :inherit nil :background nil)
+;; "q" always kills magit buffers
+(define-key magit-mode-map "q" (lambda () (interactive) (magit-mode-quit-window 'kill-buffer)))
+(define-key magit-mode-map ";" 'magit-toggle-section)
+;; Use j and k for navigation in magit-mode.
+;; Remap "k" to be magit-goto-previous-section everywhere
+(define-key magit-status-mode-map "k" 'magit-goto-previous-section)
+(define-key magit-branch-manager-mode-map "k" 'magit-goto-previous-section)
+(define-key magit-mode-map "k" 'magit-goto-previous-section)
+;; Remap "K" to do what "k" used to do, wherever "k" used to be defined
+(define-key magit-status-mode-map "K" 'magit-discard-item)
+(define-key magit-branch-manager-mode-map "K" 'magit-discard-item)
+;; Map "j" to magit-goto-next-section in eveywhere
+(defun gcs-magit-j ()
+  (interactive)
+  (let ((next (magit-find-section-after (point))))
+    (if next
+        (magit-goto-section next)
+      (goto-char (+ -1 (magit-section-end (magit-current-section)))))))
+(define-key magit-status-mode-map "j" 'gcs-magit-j)
+(define-key magit-mode-map "j" 'gcs-magit-j)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -155,6 +179,25 @@ multi-term dedicated buffer without prompting."
 	(load-file buffer-name)))
 
 
+;; evil mode
+(require 'evil)
+(evil-mode 1)
+
+;; Use tab to move between links in help mode.
+(evil-define-key 'motion help-mode-map (read-kbd-macro "TAB") 'forward-button)
+
+;; Make cursor red in Emacs mode.
+(setq evil-emacs-state-cursor '("red" box)
+      evil-cross-lines t)
+
+(mapc (lambda (mode) (evil-set-initial-state mode 'emacs))
+       '(inferior-emacs-lisp-mode
+         comint-mode
+         shell-mode
+         term-mode
+         magit-branch-manager-mode
+         pianobar-mode))
+
+(require 'keybindings)
 ;; experimental
 (load "sandbox.el")
-
