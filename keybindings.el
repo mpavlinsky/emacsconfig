@@ -113,7 +113,7 @@
      ("K"   mp-kill-buffer-and-window)
      ("g"   magit-status)
      ("l"   magit-file-log)
-     ;; ("u"   undo-tree-visualize)
+     ("u"   undo-tree-visualize)
      ;; ("x"   smex)
      ;; ("X"   smex-major-mode-commands)
      ("a"   mp-ack-in-project)

@@ -13,3 +13,6 @@
 [submodule "thirdparty/evil"]
 	path = thirdparty/evil
 	url = git@github.com:emacsmirror/evil.git
+[submodule "thirdparty/undo-tree"]
+	path = thirdparty/undo-tree
+	url = git@github.com:emacsmirror/undo-tree.git
