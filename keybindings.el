@@ -73,7 +73,8 @@
  "M-k" tabbar-forward-tab
 
  ;; Revert buffer with no confirmation
- "M-s-R" (revert-buffer t t))
+ "M-s-R" (revert-buffer t t)
+ "C-S-t" generate-buffer)
 
 
 

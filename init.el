@@ -119,6 +119,11 @@ multi-term dedicated buffer without prompting."
 (define-key magit-status-mode-map "j" 'gcs-magit-j)
 (define-key magit-mode-map "j" 'gcs-magit-j)
 
+(define-key git-rebase-mode-map "j" 'forward-line)
+(define-key git-rebase-mode-map "k" 'git-rebase-backward-line)
+(define-key git-rebase-mode-map "p" 'git-rebase-pick)
+(define-key git-rebase-mode-map "K" 'git-rebase-kill-line)
+
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -196,9 +201,8 @@ multi-term dedicated buffer without prompting."
          shell-mode
          term-mode
          magit-branch-manager-mode
+		 git-rebase-mode
          pianobar-mode))
-
-(require 'keybindings)
 
 ;; Use css-mode for SASS
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
@@ -216,6 +220,23 @@ multi-term dedicated buffer without prompting."
 (set-face-attribute 'ediff-odd-diff-A     nil :background "Grey10"  :foreground nil)
 (set-face-attribute 'ediff-odd-diff-B     nil :background "Grey10"  :foreground nil)
 (set-face-attribute 'ediff-odd-diff-C     nil :background "Grey10"  :foreground nil)
+
+(defun generate-buffer ()
+  (interactive)
+  (switch-to-buffer (make-temp-name "scratch")))
+
+(defun mp-kill-buffer-command ()
+  (interactive)
+  (kill-buffer (current-buffer))
+  (let ((buffer-menu-buffer (get-buffer "*Ibuffer*")))
+    (when buffer-menu-buffer
+      (with-current-buffer buffer-menu-buffer
+        (ibuffer-update nil)))))
+
+(require 'keybindings)
+
+(require 'exec-path-from-shell)
+(exec-path-from-shell-initialize)
 
 ;; experimental
 (load "sandbox.el")

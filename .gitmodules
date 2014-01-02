@@ -16,3 +16,6 @@
 [submodule "thirdparty/undo-tree"]
 	path = thirdparty/undo-tree
 	url = git@github.com:emacsmirror/undo-tree.git
+[submodule "thirdparty/exec-path-from-shell"]
+	path = thirdparty/exec-path-from-shell
+	url = git@github.com:purcell/exec-path-from-shell.git
