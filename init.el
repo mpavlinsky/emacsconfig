@@ -238,5 +238,61 @@ multi-term dedicated buffer without prompting."
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
 
+;; Ido
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t
+      ido-everywhere t
+      ido-ignore-buffers (cons "\\*Buffer List\\*" ido-ignore-buffers)
+      ;; Show ido completions vertically
+      ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]"
+                              " [No match]" " [Matched]" " [Not readable]"
+                              " [Too big]" " [Confirm]")))
+(add-hook 'ido-minibuffer-setup-hook
+          (lambda ()
+            ;; Disable line truncation
+            (set (make-local-variable 'truncate-lines) nil)
+            ;; Delete backward by word with C-w
+            (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
+            (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
+            (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
+
+
+;; Ido
+(ido-mode t)
+(setq ido-enable-flex-matching t
+      ido-everywhere t
+      ido-ignore-buffers (cons "\\*Buffer List\\*" ido-ignore-buffers)
+      ;; Show ido completions vertically
+      ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]"
+                              " [No match]" " [Matched]" " [Not readable]"
+                              " [Too big]" " [Confirm]")))
+(add-hook 'ido-minibuffer-setup-hook
+          (lambda ()
+            ;; Disable line truncation
+            (set (make-local-variable 'truncate-lines) nil)
+            ;; Delete backward by word with C-w
+            (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
+            (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
+            (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
+
+;; Ido
+(ido-mode t)
+(setq ido-enable-flex-matching t
+      ido-everywhere t
+      ido-ignore-buffers (cons "\\*Buffer List\\*" ido-ignore-buffers)
+      ;; Show ido completions vertically
+      ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]"
+                              " [No match]" " [Matched]" " [Not readable]"
+                              " [Too big]" " [Confirm]")))
+(add-hook 'ido-minibuffer-setup-hook
+          (lambda ()
+            ;; Disable line truncation
+            (set (make-local-variable 'truncate-lines) nil)
+            ;; Delete backward by word with C-w
+            (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
+            (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
+            (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
+
 ;; experimental
 (load "sandbox.el")

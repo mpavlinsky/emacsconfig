@@ -121,16 +121,16 @@
      ("m"   multi-term)
      
      ;; ("d"   mp-find-file-dwim)
-     ;; ("f"   ido-find-file)
-     ;; ("F"   ido-find-alternate-file)
+     ("f"   ido-find-file)
+     ("F"   ido-find-alternate-file)
      ;; ("s-f" mp-show-in-finder)
      ;; ("s-x" mp-open-with-external-editor)
      
      ("w" save-buffer)
      ("W" write-file)
-     ;; ("b" mp-ibuffer)
-     ;; ("v" ido-switch-buffer)
-     ;; ("V" ido-switch-buffer-other-frame)
+     ("b" ibuffer)
+     ("v" ido-switch-buffer)
+     ("V" ido-switch-buffer-other-frame)
 
      ("s-v" visual-line-mode)
      ("s-b" magit-blame-mode)
