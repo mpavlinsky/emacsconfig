@@ -14,9 +14,6 @@
 (add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
 (load-theme 'zenburn t)
 
-;; Make the font big
-(set-face-attribute 'default nil :font "Consolas" :height 200)
-
 ;; Turn off toolbar and menu bar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -233,6 +230,12 @@ multi-term dedicated buffer without prompting."
       (with-current-buffer buffer-menu-buffer
         (ibuffer-update nil)))))
 
+(defun mp-set-font-size (&optional size)
+  (interactive (list (if (not current-prefix-arg)
+						 (read-number "Font size: ")
+                       nil)))
+  (set-face-attribute 'default nil :font "Consolas" :height (*  size 10)))
+
 (require 'keybindings)
 
 (require 'exec-path-from-shell)
@@ -296,3 +299,8 @@ multi-term dedicated buffer without prompting."
 
 ;; experimental
 (load "sandbox.el")
+
+(mp-set-font-size 22)
+
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
