@@ -14,8 +14,8 @@
  
 (global-set-keys
  ;; Replace normal m-x with smex
- ;; "M-x" smex
- ;; "M-X" smex-major-mode-commands
+ "M-x" smex
+ "M-X" smex-major-mode-commands
 
  ;; "M-SPC" mp-change-around-paren
  
@@ -115,16 +115,16 @@
      ("g"   magit-status)
      ("l"   magit-file-log)
      ("u"   undo-tree-visualize)
-     ;; ("x"   smex)
-     ;; ("X"   smex-major-mode-commands)
-     ("a"   mp-ack-in-project)
+     ("x"   smex)
+     ("X"   smex-major-mode-commands)
      ("m"   multi-term)
-     
+     ("o"   projectile-find-file) 
      ;; ("d"   mp-find-file-dwim)
      ("f"   ido-find-file)
      ("F"   ido-find-alternate-file)
      ;; ("s-f" mp-show-in-finder)
      ;; ("s-x" mp-open-with-external-editor)
+     ("a"   ag-project)
      
      ("w" save-buffer)
      ("W" write-file)
@@ -167,5 +167,11 @@
         (define-key keymap (read-kbd-macro (concat "s-" mp-prefix-key)) 'mp-prefix-key-command))
       mp-prefix-key-maps)
 
+(defun mp-zz ()
+  (interactive)
+  (save-buffer)
+  (kill-buffer-and-window))
+
+(define-key evil-normal-state-map "ZZ" 'mp-zz)
 
 (provide 'keybindings)

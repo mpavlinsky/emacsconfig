@@ -18,6 +18,9 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
+;; No more tabs!
+(setq-default indent-tabs-mode nil)
+
 (setq
  ;; Turn off startup message
  inhibit-startup-message t
@@ -42,6 +45,9 @@
 ;; Setup emacsclient
 (server-start)
 (setenv "EDITOR" "emacsclient")
+
+;; Remove prompt when killing a client buffer
+(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 ;; Highlight matching parens
 (require 'paren)
@@ -236,7 +242,34 @@ multi-term dedicated buffer without prompting."
                        nil)))
   (set-face-attribute 'default nil :font "Consolas" :height (*  size 10)))
 
+
+;; Packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+
+(setq prelude-packages
+  '(smex projectile helm helm-projectile ibuffer-vc ag))
+
+(defun prelude-packages-installed-p ()
+  (loop for p in prelude-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (prelude-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs Prelude is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p prelude-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
+
 (require 'keybindings)
+(require 'ibuffercustomizations)
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
@@ -296,6 +329,9 @@ multi-term dedicated buffer without prompting."
             (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
             (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
             (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
+
+;; Projectile
+(projectile-global-mode)
 
 ;; experimental
 (load "sandbox.el")
