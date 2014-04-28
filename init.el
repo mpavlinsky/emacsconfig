@@ -207,6 +207,8 @@ multi-term dedicated buffer without prompting."
 		 git-rebase-mode
          pianobar-mode))
 
+(setq-default evil-symbol-word-search t)
+
 ;; Use css-mode for SASS
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 
@@ -250,7 +252,7 @@ multi-term dedicated buffer without prompting."
 (package-initialize)
 
 (setq prelude-packages
-  '(smex projectile helm helm-projectile ibuffer-vc ag))
+  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord))
 
 (defun prelude-packages-installed-p ()
   (loop for p in prelude-packages
@@ -332,6 +334,10 @@ multi-term dedicated buffer without prompting."
 
 ;; Projectile
 (projectile-global-mode)
+
+;; Ag
+(setq ag-highlight-search t)
+(setq ag-reuse-buffers t)
 
 ;; experimental
 (load "sandbox.el")

@@ -136,7 +136,7 @@
      ("s-b" magit-blame-mode)
 
      ("r" eval-buffer)
-     
+    
      ("0" delete-window)
      ("7" delete-window)
      ("1" delete-other-windows)
@@ -173,5 +173,59 @@
   (kill-buffer-and-window))
 
 (define-key evil-normal-state-map "ZZ" 'mp-zz)
+
+;;;;; KEY-CHORD KEYBINDINGS ;;;;;
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.05)
+
+;; Any prefix key, "\x" can also be triggered with the key chord "jx"
+(mapc (lambda (prefix-command)
+        (let* ((key-string (first prefix-command))
+               (key (aref key-string 0)))
+          (when (and (numberp key) (<= key 126) (>= key 32)
+                     (not (equal key-string "j"))
+                     (not (equal key-string "k")))
+            (key-chord-define-global (vector (aref "j" 0) key) (second prefix-command)))))
+      mp-prefix-key-commands)
+
+;; (key-chord-define-global "jl" 'mp-helm-dwim)
+
+;; Numbers for window splitting
+(key-chord-define-global "89" 'split-window-vertically)
+(key-chord-define-global "78" 'split-window-horizontally)
+
+;; First fingers column
+(key-chord-define evil-normal-state-map "jk" 'keyboard-quit)
+(key-chord-define minibuffer-local-map "jk" 'abort-recursive-edit)
+(key-chord-define ibuffer-mode-map "jk" 'ibuffer-quit)
+(key-chord-define-global "m," 'smex)
+
+;; K + o or . for killing buffer or window
+(key-chord-define-global "k." 'delete-window)
+(key-chord-define-global "ko" 'mp-kill-buffer-command)
+
+;; H-chords for help
+(key-chord-define-global "hf" 'describe-function)
+(key-chord-define-global "hv" 'describe-variable)
+(key-chord-define-global "hk" 'describe-key)
+
+;; K + u or m for moving by half-screen
+;; (key-chord-define-global "ku" 'mp-smooth-scroll-up-half-screen)
+;; (key-chord-define-global "km" 'mp-smooth-scroll-down-half-screen)
+
+(key-chord-define-global "kg" 'evil-goto-line)
+(key-chord-define-global "kv" 'evil-visual-line)
+
+;; Semicolon chords for evaluation
+(defun mp-eval-dwim ()
+  (interactive)
+  (if (not mark-active)
+      (call-interactively 'eval-last-sexp)
+    (call-interactively 'eval-region)
+    (message "eval-ed.")))
+
+(key-chord-define-global "j;" 'mp-eval-dwim)
+(key-chord-define-global "k;" 'eval-defun)
+(key-chord-define-global "l;" 'eval-expression)
 
 (provide 'keybindings)
