@@ -252,7 +252,7 @@ multi-term dedicated buffer without prompting."
 (package-initialize)
 
 (setq prelude-packages
-  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord))
+  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord auto-complete))
 
 (defun prelude-packages-installed-p ()
   (loop for p in prelude-packages
@@ -338,6 +338,18 @@ multi-term dedicated buffer without prompting."
 ;; Ag
 (setq ag-highlight-search t)
 (setq ag-reuse-buffers t)
+
+;; Autocomplete
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-quick-help-delay 1.5
+      ac-use-menu-map t)
+
+;; dirty fix for having AC everywhere
+(defun auto-complete-mode-maybe ()
+  (unless (minibufferp (current-buffer))
+    (auto-complete-mode 1)))
+(global-auto-complete-mode t)
 
 ;; experimental
 (load "sandbox.el")

@@ -228,4 +228,9 @@
 (key-chord-define-global "k;" 'eval-defun)
 (key-chord-define-global "l;" 'eval-expression)
 
+;; Autocomplete
+(global-set-key (kbd "C-SPC") 'auto-complete)
+(define-key ac-menu-map (kbd "s-j") 'ac-next)
+(define-key ac-menu-map (kbd "s-k") 'ac-previous)
+
 (provide 'keybindings)
