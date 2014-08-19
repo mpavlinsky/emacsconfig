@@ -1,3 +1,5 @@
+(require 'ibuffer)
+
 (defconst mp-ibuffer-fontification-alist
   '((ruby-mode . font-lock-string-face)
     (sh-mode . font-lock-string-face)

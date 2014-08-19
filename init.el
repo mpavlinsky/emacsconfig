@@ -99,7 +99,7 @@ multi-term dedicated buffer without prompting."
 (require 'magit-blame)
 
 ;; Magit
-(setq magit-process-popup-time 5)
+(setq magit-process-popup-time 60)
 (set-face-attribute 'magit-item-highlight nil :inherit nil :background nil)
 ;; "q" always kills magit buffers
 (define-key magit-mode-map "q" (lambda () (interactive) (magit-mode-quit-window 'kill-buffer)))
@@ -270,8 +270,20 @@ multi-term dedicated buffer without prompting."
       (package-install p))))
 
 
-(require 'keybindings)
+;; Autocomplete
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-quick-help-delay 1.5
+      ac-use-menu-map t)
+
+;; dirty fix for having AC everywhere
+(defun auto-complete-mode-maybe ()
+  (unless (minibufferp (current-buffer))
+    (auto-complete-mode 1)))
+(global-auto-complete-mode t)
+
 (require 'ibuffercustomizations)
+(require 'keybindings)
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
@@ -338,18 +350,6 @@ multi-term dedicated buffer without prompting."
 ;; Ag
 (setq ag-highlight-search t)
 (setq ag-reuse-buffers t)
-
-;; Autocomplete
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-quick-help-delay 1.5
-      ac-use-menu-map t)
-
-;; dirty fix for having AC everywhere
-(defun auto-complete-mode-maybe ()
-  (unless (minibufferp (current-buffer))
-    (auto-complete-mode 1)))
-(global-auto-complete-mode t)
 
 ;; experimental
 (load "sandbox.el")

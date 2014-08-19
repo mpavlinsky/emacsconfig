@@ -13,6 +13,11 @@
                   bindings)))
  
 (global-set-keys
+ ;; VIM style search in Emacs Mode
+ ;; "/" evil-search-forward
+ ;; "n" evil-search-next
+ ;; "N" evil-search-previous
+ 
  ;; Replace normal m-x with smex
  "M-x" smex
  "M-X" smex-major-mode-commands
