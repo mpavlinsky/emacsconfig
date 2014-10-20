@@ -284,7 +284,6 @@ multi-term dedicated buffer without prompting."
 (global-auto-complete-mode t)
 
 (require 'ibuffercustomizations)
-(require 'keybindings)
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
@@ -369,6 +368,7 @@ multi-term dedicated buffer without prompting."
 (local-set-key (kbd "{") 'csharp-insert-open-brace)
 
 ;; Company Mode.
+(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; Omnisharp
@@ -376,6 +376,8 @@ multi-term dedicated buffer without prompting."
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-omnisharp))
+
+(require 'keybindings)
 
 ;; experimental
 (load "sandbox.el")
