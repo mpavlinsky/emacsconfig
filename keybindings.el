@@ -238,4 +238,9 @@
 (define-key ac-menu-map (kbd "s-j") 'ac-next)
 (define-key ac-menu-map (kbd "s-k") 'ac-previous)
 
+;; Company
+(define-key company-mode-map (kbd "s-j") 'company-select-next)
+(define-key company-mode-map (kbd "s-k") 'company-select-previous)
+
+
 (provide 'keybindings)

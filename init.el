@@ -252,7 +252,7 @@ multi-term dedicated buffer without prompting."
 (package-initialize)
 
 (setq prelude-packages
-  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord auto-complete))
+  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord))
 
 (defun prelude-packages-installed-p ()
   (loop for p in prelude-packages
@@ -271,10 +271,11 @@ multi-term dedicated buffer without prompting."
 
 
 ;; Autocomplete
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-quick-help-delay 1.5
-      ac-use-menu-map t)
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (setq ac-quick-help-delay 1.5
+;;       ac-use-menu-map t)
+
 
 ;; dirty fix for having AC everywhere
 (defun auto-complete-mode-maybe ()
@@ -367,7 +368,14 @@ multi-term dedicated buffer without prompting."
 (setq csharp-want-imenu nil)
 (local-set-key (kbd "{") 'csharp-insert-open-brace)
 
+;; Company Mode.
+(add-hook 'after-init-hook 'global-company-mode)
 
+;; Omnisharp
+(require 'omnisharp)
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
 
 ;; experimental
 (load "sandbox.el")
