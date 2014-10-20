@@ -351,6 +351,24 @@ multi-term dedicated buffer without prompting."
 (setq ag-highlight-search t)
 (setq ag-reuse-buffers t)
 
+;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; C# Flycheck - Stolen from http://bbbscarter.wordpress.com/category/coding/unity/
+(require 'flycheck)
+(flycheck-define-checker csharp-unity
+"Custom checker for Unity projects"
+:modes (csharp-mode)
+:command ("python" (eval (concat (project:active-project-root) "make.py")) "fast" (eval (project:active-project-root)) source-original source)
+:error-patterns((warning line-start (file-name) "(" line (zero-or-more not-newline) "): " (message) line-end)
+(error line-start (file-name) "(" line (zero-or-more not-newline) "): " (message) line-end)))
+
+;; C# Mode
+(setq csharp-want-imenu nil)
+(local-set-key (kbd "{") 'csharp-insert-open-brace)
+
+
+
 ;; experimental
 (load "sandbox.el")
 

@@ -19,3 +19,6 @@
 [submodule "thirdparty/exec-path-from-shell"]
 	path = thirdparty/exec-path-from-shell
 	url = git@github.com:purcell/exec-path-from-shell.git
+[submodule "thirdparty/omnisharp-emacs"]
+	path = thirdparty/omnisharp-emacs
+	url = https://github.com/sp3ctum/omnisharp-emacs.git
