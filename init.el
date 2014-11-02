@@ -354,7 +354,7 @@ multi-term dedicated buffer without prompting."
 ;; Flycheck
 (require 'flycheck)
 (require 'flycheckcustomizations)
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; C# Mode
 (setq csharp-want-imenu nil)
