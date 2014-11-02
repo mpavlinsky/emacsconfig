@@ -229,9 +229,15 @@
     (call-interactively 'eval-region)
     (message "eval-ed.")))
 
+(require 'flycheckcustomizations)
+(defun mp-flycheck-dwim ()
+  (interactive)
+  (flycheck-buffer))
+
 (key-chord-define-global "j;" 'mp-eval-dwim)
 (key-chord-define-global "k;" 'eval-defun)
 (key-chord-define-global "l;" 'eval-expression)
+(key-chord-define-global "b;" 'mp-flycheck-dwim)
 
 ;; Autocomplete
 (global-set-key (kbd "C-SPC") 'auto-complete)
@@ -241,6 +247,5 @@
 ;; Company
 (define-key company-mode-map (kbd "s-j") 'company-select-next)
 (define-key company-mode-map (kbd "s-k") 'company-select-previous)
-
 
 (provide 'keybindings)
