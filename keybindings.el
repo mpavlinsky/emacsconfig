@@ -248,4 +248,9 @@
 (define-key company-mode-map (kbd "s-j") 'company-select-next)
 (define-key company-mode-map (kbd "s-k") 'company-select-previous)
 
+
+;; Error navigation / debugging
+(key-chord-define-global "kn" 'flycheck-next-error)
+(key-chord-define-global "ky" 'flycheck-previous-error)
+
 (provide 'keybindings)
