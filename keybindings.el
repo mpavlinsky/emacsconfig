@@ -245,9 +245,8 @@
 (define-key ac-menu-map (kbd "s-k") 'ac-previous)
 
 ;; Company
-(define-key company-mode-map (kbd "s-j") 'company-select-next)
-(define-key company-mode-map (kbd "s-k") 'company-select-previous)
-
+(define-key company-active-map (kbd "s-j") 'company-select-next)
+(define-key company-active-map (kbd "s-k") 'company-select-previous)
 
 ;; Error navigation / debugging
 (key-chord-define-global "kn" 'flycheck-next-error)
