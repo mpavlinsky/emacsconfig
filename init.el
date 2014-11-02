@@ -359,7 +359,7 @@ multi-term dedicated buffer without prompting."
 (flycheck-define-checker csharp-unity
 "Custom checker for Unity projects"
 :modes (csharp-mode)
-:command ("python" (eval (concat (project:active-project-root) "make.py")) "fast" (eval (project:active-project-root)) source-original source)
+:command ("python" (eval (concat projectile-project-root "make.py")) "fast" (eval projectile-project-root) source-original source)
 :error-patterns((warning line-start (file-name) "(" line (zero-or-more not-newline) "): " (message) line-end)
 (error line-start (file-name) "(" line (zero-or-more not-newline) "): " (message) line-end)))
 
