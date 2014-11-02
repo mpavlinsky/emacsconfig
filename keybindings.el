@@ -11,7 +11,19 @@
                         `(global-set-key (kbd ,key) (lambda () (interactive) ,command))
                       `(global-set-key (kbd ,key) ',command)))
                   bindings)))
- 
+
+(defun mp-next-dwim ()
+  (interactive)
+  (if company-pseudo-tooltip-overlay
+      (company-select-next)
+    (other-window 1)))
+
+(defun mp-previous-dwim ()
+  (interactive)
+  (if company-pseudo-tooltip-overlay
+      (company-select-previous)
+    (other-window -1)))
+
 (global-set-keys
  ;; VIM style search in Emacs Mode
  ;; "/" evil-search-forward
@@ -51,8 +63,8 @@
  ;; Use s-[h, j, k, l] for window navigation
  "s-h" windmove-left
  "s-l" windmove-right
- "s-k" windmove-up
- "s-j" windmove-down
+ "s-k" mp-previous-dwim
+ "s-j" mp-next-dwim
 
  ;; Also use C-[arrow keys] for window navigation. Useful in terminal emacs.
  "C-<left>" windmove-left
@@ -224,10 +236,15 @@
 ;; Semicolon chords for evaluation
 (defun mp-eval-dwim ()
   (interactive)
-  (if (not mark-active)
-      (call-interactively 'eval-last-sexp)
-    (call-interactively 'eval-region)
-    (message "eval-ed.")))
+  (if (derived-mode-p 'emacs-lisp-mode)
+      (progn
+        (message "elisp detected")
+        (if (not mark-active)
+            (call-interactively 'eval-last-sexp)
+          (call-interactively 'eval-region)
+          (message "Evaluated elisp")))
+    (flycheck-buffer)
+    (message "Flychecked")))
 
 (require 'flycheckcustomizations)
 (defun mp-flycheck-dwim ()
@@ -241,12 +258,6 @@
 
 ;; Autocomplete
 (global-set-key (kbd "C-SPC") 'auto-complete)
-(define-key ac-menu-map (kbd "s-j") 'ac-next)
-(define-key ac-menu-map (kbd "s-k") 'ac-previous)
-
-;; Company
-(define-key company-active-map (kbd "s-j") 'company-select-next)
-(define-key company-active-map (kbd "s-k") 'company-select-previous)
 
 ;; Error navigation / debugging
 (key-chord-define-global "kn" 'flycheck-next-error)
