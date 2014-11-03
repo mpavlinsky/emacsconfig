@@ -278,10 +278,10 @@ multi-term dedicated buffer without prompting."
 
 
 ;; dirty fix for having AC everywhere
-(defun auto-complete-mode-maybe ()
-  (unless (minibufferp (current-buffer))
-    (auto-complete-mode 1)))
-(global-auto-complete-mode t)
+;; (defun auto-complete-mode-maybe ()
+;;   (unless (minibufferp (current-buffer))
+;;     (auto-complete-mode 1)))
+;; (global-auto-complete-mode t)
 
 (require 'ibuffercustomizations)
 

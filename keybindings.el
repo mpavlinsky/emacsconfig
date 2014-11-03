@@ -257,7 +257,7 @@
 (key-chord-define-global "b;" 'mp-flycheck-dwim)
 
 ;; Autocomplete
-(global-set-key (kbd "C-SPC") 'auto-complete)
+(global-set-key (kbd "C-SPC") 'company-complete)
 
 ;; Error navigation / debugging
 (key-chord-define-global "kn" 'flycheck-next-error)
