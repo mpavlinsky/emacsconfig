@@ -24,6 +24,11 @@
       (company-select-previous)
     (other-window -1)))
 
+(defun mp-go-to-definition-dwim ()
+ (interactive)
+ (if omnisharp-mode
+     (omnisharp-go-to-definition)))
+
 (global-set-keys
  ;; VIM style search in Emacs Mode
  ;; "/" evil-search-forward
@@ -60,6 +65,9 @@
  ;; "s-O" mp-find-file-dwim
  ;; "C-s-<up>" ff-find-other-file
 
+ "s-K" previous-buffer
+ "s-J" next-buffer
+ 
  ;; Use s-[h, j, k, l] for window navigation
  "s-h" windmove-left
  "s-l" windmove-right
@@ -142,12 +150,14 @@
      ;; ("s-f" mp-show-in-finder)
      ;; ("s-x" mp-open-with-external-editor)
      ("a"   ag-project)
+     ("d"   mp-go-to-definition-dwim)
      
      ("w" save-buffer)
      ("W" write-file)
      ("b" ibuffer)
      ("v" ido-switch-buffer)
      ("V" ido-switch-buffer-other-frame)
+     ("c" recenter)
 
      ("s-v" visual-line-mode)
      ("s-b" magit-blame-mode)
@@ -243,7 +253,7 @@
             (call-interactively 'eval-last-sexp)
           (call-interactively 'eval-region)
           (message "Evaluated elisp")))
-    (flycheck-buffer)
+    (flycheck-compile (flycheck-get-checker-for-buffer))
     (message "Flychecked")))
 
 (require 'flycheckcustomizations)
