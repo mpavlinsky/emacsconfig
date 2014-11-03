@@ -358,8 +358,10 @@ multi-term dedicated buffer without prompting."
 
 ;; C# Mode
 (setq csharp-want-imenu nil)
-(local-set-key (kbd "{") 'csharp-insert-open-brace)
-
+(setq skeleton-pair t)
+(add-hook 'csharp-mode-hook (lambda ()
+                              (local-set-key (kbd "{") 'c-electric-brace)))
+                              
 ;; Company Mode.
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
