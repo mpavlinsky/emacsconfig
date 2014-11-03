@@ -247,12 +247,12 @@ multi-term dedicated buffer without prompting."
 
 ;; Packages
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 (setq prelude-packages
-  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord))
+  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord company omnisharp flycheck))
 
 (defun prelude-packages-installed-p ()
   (loop for p in prelude-packages
