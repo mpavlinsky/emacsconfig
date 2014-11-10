@@ -372,6 +372,9 @@ multi-term dedicated buffer without prompting."
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-omnisharp))
 
+;; Golang
+(require 'golang-extra)
+
 (require 'keybindings)
 
 ;; experimental
