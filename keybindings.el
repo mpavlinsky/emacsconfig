@@ -266,15 +266,12 @@
 (key-chord-define-global "l;" 'eval-expression)
 (key-chord-define-global "b;" 'mp-flycheck-dwim)
 
-
 ;; Error navigation / debugging
 (key-chord-define-global "kn" 'flycheck-next-error)
 (key-chord-define-global "ky" 'flycheck-previous-error)
 
 ;; Company
 (global-set-key (kbd "C-SPC") 'company-complete)
-(define-key company-mode-map (kbd "s-j") 'company-select-next)
-(define-key company-mode-map (kbd "s-k") 'company-select-previous)
 (define-key company-mode-map (kbd "C-s") 'company-filter-candidates)
 
 (provide 'keybindings)
