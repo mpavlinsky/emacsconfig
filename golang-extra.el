@@ -23,6 +23,9 @@ See URL `http://golang.org/cmd/go'."
 (add-to-list 'flycheck-checkers 'go-app-build)
 
 ;; Always just use the GAE checker for now. Maybe in the future only use GAE if app.yaml is present in the project root?
-(add-hook 'go-mode-hook (lambda() (flycheck-select-checker 'go-app-build)))
+(add-hook 'go-mode-hook (lambda() 
+                          (flycheck-select-checker 'go-app-build)))
+
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 (provide 'golang-extra)

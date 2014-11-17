@@ -29,6 +29,11 @@
  (if omnisharp-mode
      (omnisharp-go-to-definition)))
 
+(defun mp-next-error ()
+  (interactive)
+  (flycheck-next-error 1 (not (flycheck-next-error-pos 1)))
+  (recenter))
+
 (global-set-keys
  ;; VIM style search in Emacs Mode
  ;; "/" evil-search-forward
@@ -36,7 +41,7 @@
  ;; "N" evil-search-previous
  
  ;; Replace normal m-x with smex
- "M-x" smex
+ "M-x" helm-M-x ;;smex
  "M-X" smex-major-mode-commands
 
  ;; "M-SPC" mp-change-around-paren
@@ -140,7 +145,7 @@
      ("g"   magit-status)
      ("l"   magit-file-log)
      ("u"   undo-tree-visualize)
-     ("x"   smex)
+     ("x"   helm-M-x)
      ("X"   smex-major-mode-commands)
      ("m"   multi-term)
      ("o"   projectile-find-file) 
@@ -151,7 +156,7 @@
      ;; ("s-x" mp-open-with-external-editor)
      ("a"   ag-project)
      ("d"   mp-go-to-definition-dwim)
-     
+     ("e"   mp-next-error)
      ("w" save-buffer)
      ("W" write-file)
      ("b" ibuffer)
@@ -235,6 +240,7 @@
 (key-chord-define-global "hf" 'describe-function)
 (key-chord-define-global "hv" 'describe-variable)
 (key-chord-define-global "hk" 'describe-key)
+(key-chord-define-global "ha" #'helm-apropos)
 
 ;; K + u or m for moving by half-screen
 ;; (key-chord-define-global "ku" 'mp-smooth-scroll-up-half-screen)
@@ -253,7 +259,8 @@
             (call-interactively 'eval-last-sexp)
           (call-interactively 'eval-region)
           (message "Evaluated elisp")))
-    (flycheck-compile (flycheck-get-checker-for-buffer))
+    (flycheck-buffer)
+    ;; (flycheck-compile (flycheck-get-checker-for-buffer))
     (message "Flychecked")))
 
 (require 'flycheckcustomizations)
@@ -267,11 +274,15 @@
 (key-chord-define-global "b;" 'mp-flycheck-dwim)
 
 ;; Error navigation / debugging
-(key-chord-define-global "kn" 'flycheck-next-error)
-(key-chord-define-global "ky" 'flycheck-previous-error)
+;; (key-chord-define-global "kn" 'flycheck-next-error)
+;; (key-chord-define-global "ky" 'flycheck-previous-error)
 
 ;; Company
 (global-set-key (kbd "C-SPC") 'company-complete)
 (define-key company-mode-map (kbd "C-s") 'company-filter-candidates)
+
+;; Helm
+(define-key helm-map (kbd "s-j") 'helm-next-line)
+(define-key helm-map (kbd "s-k") 'helm-previous-line)
 
 (provide 'keybindings)

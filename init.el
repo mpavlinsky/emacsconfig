@@ -40,7 +40,10 @@
  scroll-margin 0
  scroll-conservatively 100000
  scroll-up-aggressively 0.0
- scroll-down-aggressively 0.0)
+ scroll-down-aggressively 0.0
+
+ ;; No more beeps
+ visible-bell 1)
 
 ;; Setup emacsclient
 (server-start)
@@ -252,7 +255,7 @@ multi-term dedicated buffer without prompting."
 (package-initialize)
 
 (setq prelude-packages
-  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord company omnisharp flycheck))
+  '(smex projectile helm helm-projectile ibuffer-vc ag key-chord company omnisharp flycheck go-mode company-go))
 
 (defun prelude-packages-installed-p ()
   (loop for p in prelude-packages
@@ -307,45 +310,11 @@ multi-term dedicated buffer without prompting."
             (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
             (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
 
-
-;; Ido
-(ido-mode t)
-(setq ido-enable-flex-matching t
-      ido-everywhere t
-      ido-ignore-buffers (cons "\\*Buffer List\\*" ido-ignore-buffers)
-      ;; Show ido completions vertically
-      ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]"
-                              " [No match]" " [Matched]" " [Not readable]"
-                              " [Too big]" " [Confirm]")))
-(add-hook 'ido-minibuffer-setup-hook
-          (lambda ()
-            ;; Disable line truncation
-            (set (make-local-variable 'truncate-lines) nil)
-            ;; Delete backward by word with C-w
-            (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
-            (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
-            (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
-
-;; Ido
-(ido-mode t)
-(setq ido-enable-flex-matching t
-      ido-everywhere t
-      ido-ignore-buffers (cons "\\*Buffer List\\*" ido-ignore-buffers)
-      ;; Show ido completions vertically
-      ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]"
-                              " [No match]" " [Matched]" " [Not readable]"
-                              " [Too big]" " [Confirm]")))
-(add-hook 'ido-minibuffer-setup-hook
-          (lambda ()
-            ;; Disable line truncation
-            (set (make-local-variable 'truncate-lines) nil)
-            ;; Delete backward by word with C-w
-            (define-key ido-completion-map (kbd "C-w") 'ido-delete-backward-word-updir)
-            (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
-            (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
-
 ;; Projectile
 (projectile-global-mode)
+
+;; Helm
+(require 'helm-config)
 
 ;; Ag
 (setq ag-highlight-search t)
@@ -362,7 +331,7 @@ multi-term dedicated buffer without prompting."
 (add-hook 'csharp-mode-hook (lambda ()
                               (local-set-key (kbd "{") 'c-electric-brace)))
                               
-;; Company Mode.
+;; Company Mode
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
