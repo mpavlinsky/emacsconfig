@@ -353,6 +353,9 @@ multi-term dedicated buffer without prompting."
 (color-theme-initialize)
 (color-theme-taming-mr-arneson)
 
+(set-face-attribute 'magit-diff-hunk-header nil
+                    :inherit 'region)
+
 (mp-set-font-size 14)
 
 (custom-set-variables
