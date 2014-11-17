@@ -10,9 +10,6 @@
   (normal-top-level-add-subdirs-to-load-path)
   (nconc load-path orig-load-path))
 
-;; Zenburn!
-(add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
-(load-theme 'zenburn t)
 
 ;; Turn off toolbar and menu bar
 (tool-bar-mode -1)
@@ -349,7 +346,14 @@ multi-term dedicated buffer without prompting."
 ;; experimental
 (load "sandbox.el")
 
-(mp-set-font-size 22)
+;; Themes
+;; (add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
+;; (load-theme 'zenburn t)
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-taming-mr-arneson)
+
+(mp-set-font-size 14)
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
