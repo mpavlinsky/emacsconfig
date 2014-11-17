@@ -28,7 +28,7 @@
                               
 (setq flycheck-highlighting-mode 'lines)
 (setq flycheck-check-syntax-automatically '(save))
-(setq flycheck-display-errors-delay 0.0)
+(setq flycheck-display-errors-delay 9999999999999)
 
 (provide 'flycheckcustomizations)
 ;;; flycheckcustomizations.el ends here

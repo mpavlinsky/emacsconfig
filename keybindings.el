@@ -32,6 +32,7 @@
 (defun mp-next-error ()
   (interactive)
   (flycheck-next-error 1 (not (flycheck-next-error-pos 1)))
+  (flycheck-display-error-at-point)
   (recenter))
 
 (global-set-keys
