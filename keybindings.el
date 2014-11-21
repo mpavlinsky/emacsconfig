@@ -242,6 +242,8 @@
 (key-chord-define-global "hv" 'describe-variable)
 (key-chord-define-global "hk" 'describe-key)
 (key-chord-define-global "ha" #'helm-apropos)
+(key-chord-define-global "hd" #'helm-dash)
+(key-chord-define-global "hs" #'helm-dash-at-point)
 
 ;; K + u or m for moving by half-screen
 ;; (key-chord-define-global "ku" 'mp-smooth-scroll-up-half-screen)

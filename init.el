@@ -205,7 +205,8 @@ multi-term dedicated buffer without prompting."
          term-mode
          magit-branch-manager-mode
 		 git-rebase-mode
-         pianobar-mode))
+         pianobar-mode
+         package-menu-mode))
 
 (setq-default evil-symbol-word-search t)
 
@@ -341,22 +342,20 @@ multi-term dedicated buffer without prompting."
 ;; Golang
 (require 'golang-extra)
 
+;; JS
+(require 'js-extra)
+
+;; Dash
+(setq helm-dash-min-length 2)
+(setq helm-dash-browser-func 'eww)
+
 (require 'keybindings)
 
 ;; experimental
 (load "sandbox.el")
 
 ;; Themes
-;; (add-to-list 'custom-theme-load-path (concat mp-thirdparty-directory "zenburn-emacs"))
-;; (load-theme 'zenburn t)
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-taming-mr-arneson)
-
-(set-face-attribute 'magit-diff-hunk-header nil
-                    :inherit 'region)
-
-(mp-set-font-size 14)
+(load "theme.el")
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
