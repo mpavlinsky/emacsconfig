@@ -308,6 +308,8 @@ multi-term dedicated buffer without prompting."
             (define-key ido-completion-map (kbd "s-j") 'ido-next-match)
             (define-key ido-completion-map (kbd "s-k") 'ido-prev-match)))
 
+(setq ido-auto-merge-work-directories-length -1)
+
 ;; Projectile
 (projectile-global-mode)
 
