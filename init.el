@@ -351,6 +351,16 @@ multi-term dedicated buffer without prompting."
 (setq helm-dash-min-length 2)
 (setq helm-dash-browser-func 'eww)
 
+;; Markdown
+(require 'markdown-mode)
+    (add-hook 'markdown-mode-hook
+            (lambda ()
+              (modify-syntax-entry ?\" "\"" markdown-mode-syntax-table)
+              (when buffer-file-name
+                (add-hook 'after-save-hook
+                          'check-parens
+                          nil t))))
+
 (require 'keybindings)
 
 ;; experimental
